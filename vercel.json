@@ -8,10 +8,6 @@
     {
       "source": "/case-study",
       "destination": "/case-study/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/"
     }
   ]
 }
