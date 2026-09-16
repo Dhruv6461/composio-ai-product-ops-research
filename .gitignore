@@ -15,3 +15,6 @@ Thumbs.db
 
 # Deployments
 .vercel/
+
+# Unrelated local working directory
+gurugram-exhibition-site/
