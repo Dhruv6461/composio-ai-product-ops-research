@@ -1,0 +1,442 @@
+[
+  {
+    "id": 1,
+    "app": "Salesforce",
+    "category": "CRM and Sales",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "JWT", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "THIRD_PARTY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "JWT", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "THIRD_PARTY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developer.salesforce.com/signup",
+    "notes": "Verified that Salesforce Developer Edition provides a perpetual, full-featured developer sandbox with zero credit card required. Production enterprise orgs still require admin Connected App provisioning."
+  },
+  {
+    "id": 10,
+    "app": "DealCloud",
+    "category": "CRM and Sales",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "CONTACT_SALES",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "CONTACT_SALES",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://intapp.com/dealcloud/",
+    "notes": "Verified that DealCloud (Intapp) has no public developer signup or self-serve sandbox. API access requires contractual procurement and enterprise IT admin setup."
+  },
+  {
+    "id": 11,
+    "app": "Zendesk",
+    "category": "Support and Helpdesk",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "API Key", "Bearer Token", "Basic Auth"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "API Key", "Bearer Token", "Basic Auth"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developer.zendesk.com/api-reference/",
+    "notes": "Verified that Zendesk provides sponsored developer accounts for app developers, and standard free trials allow instant API token generation under Admin Center > Apps and Integrations > Zendesk API."
+  },
+  {
+    "id": 20,
+    "app": "Gladly",
+    "category": "Support and Helpdesk",
+    "agent_result": {
+      "auth_methods": ["Basic Auth", "API Key"],
+      "credential_access": "CONTACT_SALES",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Basic Auth", "API Key"],
+      "credential_access": "CONTACT_SALES",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developer.gladly.com/",
+    "notes": "Verified that while developer documentation is public, credentials cannot be acquired self-serve. Access is strictly gated to enterprise customer contracts."
+  },
+  {
+    "id": 21,
+    "app": "Slack",
+    "category": "Communications and Messaging",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/slack",
+    "notes": "Verified that Slack has an official reference MCP server in the Anthropic modelcontextprotocol/servers repository, and bot tokens can be generated immediately in free workspaces."
+  },
+  {
+    "id": 28,
+    "app": "WhatsApp Business",
+    "category": "Communications and Messaging",
+    "agent_result": {
+      "auth_methods": ["Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY_WITH_CAVEATS"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY_WITH_CAVEATS"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+    "notes": "Verified that test numbers and 24-hour developer access are self-serve via Meta Cloud API, but production messaging requires Meta Business Verification and template approvals."
+  },
+  {
+    "id": 32,
+    "app": "Meta Ads",
+    "category": "Marketing, Ads, Email and Social",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY_WITH_CAVEATS"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY_WITH_CAVEATS"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+    "notes": "Verified that development mode allows sandbox ad creation, but managing real client ad spend requires Meta App Review for ads_management scope."
+  },
+  {
+    "id": 33,
+    "app": "LinkedIn Ads",
+    "category": "Marketing, Ads, Email and Social",
+    "agent_result": {
+      "auth_methods": ["OAuth2"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+    "notes": "Verified that basic developer app creation is self-serve, but access to the Marketing Developer Platform (rw_ads scope) requires formal partner vetting and approval."
+  },
+  {
+    "id": 41,
+    "app": "Shopify",
+    "category": "Ecommerce",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://shopify.dev/docs/apps/tools/development-stores",
+    "notes": "Verified that Shopify Partner accounts allow unlimited free development stores with full Admin GraphQL and REST API access."
+  },
+  {
+    "id": 44,
+    "app": "Salesforce Commerce Cloud",
+    "category": "Ecommerce",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "Bearer Token", "JWT"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "Bearer Token", "JWT"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+    "notes": "Verified that SFCC B2C Commerce Account Manager is separate from core Salesforce Developer Edition and strictly gated to enterprise brand tenants."
+  },
+  {
+    "id": 49,
+    "app": "Amazon Selling Partner API",
+    "category": "Ecommerce",
+    "agent_result": {
+      "auth_methods": ["OAuth2", "JWT"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["OAuth2", "JWT"],
+      "credential_access": "PARTNER_GATED",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developer-docs.amazon.com/sp-api/docs/connecting-to-the-selling-partner-api",
+    "notes": "Verified that SP-API registration requires an active Professional Seller account, AWS IAM setup, and strict submission of a Data Protection Policy assessment."
+  },
+  {
+    "id": 55,
+    "app": "Apify",
+    "category": "Data, SEO and Scraping",
+    "agent_result": {
+      "auth_methods": ["Bearer Token", "API Key"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Bearer Token", "API Key"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://docs.apify.com/api/v2",
+    "notes": "Verified that Apify provides $5/mo perpetual free credit with instant API token generation for running web scraping Actors."
+  },
+  {
+    "id": 58,
+    "app": "Sherlock",
+    "category": "Data, SEO and Scraping",
+    "agent_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "NOT_APPLICABLE",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "NOT_APPLICABLE",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/sherlock-project/sherlock",
+    "notes": "Human reviewer confirms Sherlock is an open-source Python CLI binary tool, not a hosted SaaS API. Toolkit buildability is READY as a local tool."
+  },
+  {
+    "id": 61,
+    "app": "GitHub",
+    "category": "Developer, Infra and Data",
+    "agent_result": {
+      "auth_methods": ["Personal Access Token", "OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Personal Access Token", "OAuth2", "Bearer Token"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/github",
+    "notes": "Verified that GitHub Personal Access Tokens are instantly generate-able on free accounts, and Anthropic maintains an official reference GitHub MCP server."
+  },
+  {
+    "id": 64,
+    "app": "Cloudflare",
+    "category": "Developer, Infra and Data",
+    "agent_result": {
+      "auth_methods": ["Bearer Token", "API Key"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Bearer Token", "API Key"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/cloudflare/mcp-server-cloudflare",
+    "notes": "Verified that Cloudflare published an official MCP server on GitHub and scoped API tokens are available on free accounts."
+  },
+  {
+    "id": 70,
+    "app": "Sentry",
+    "category": "Developer, Infra and Data",
+    "agent_result": {
+      "auth_methods": ["Bearer Token", "Personal Access Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Bearer Token", "Personal Access Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "OFFICIAL",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/getsentry/mcp-server",
+    "notes": "Verified that Sentry officially created and open-sourced getsentry/mcp-server, correcting Pass 1's misclassification as Community."
+  },
+  {
+    "id": 71,
+    "app": "Notion",
+    "category": "Productivity and Project Management",
+    "agent_result": {
+      "auth_methods": ["Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://developers.notion.com/reference/intro",
+    "notes": "Verified that internal integration secrets can be generated freely under notion.so/profile/integrations and shared with specific workspace pages."
+  },
+  {
+    "id": 81,
+    "app": "Stripe",
+    "category": "Finance and Fintech",
+    "agent_result": {
+      "auth_methods": ["API Key", "Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["API Key", "Bearer Token", "OAuth2"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://stripe.com/docs/api",
+    "notes": "Verified that instant sk_test_ keys are generated upon signup without bank verification. Widely considered the gold standard for developer self-service."
+  },
+  {
+    "id": 91,
+    "app": "NotebookLM",
+    "category": "AI, Research and Media",
+    "agent_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "UNKNOWN",
+      "api_available": false,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "UNKNOWN",
+      "api_available": false,
+      "mcp_status": "NONE_FOUND",
+      "buildability": "BLOCKED"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://notebooklm.google/",
+    "notes": "Human reviewer confirms Google has not released a public developer API for NotebookLM; building an integration requires unofficial reverse engineering, making official toolkit buildability BLOCKED."
+  },
+  {
+    "id": 98,
+    "app": "Mermaid CLI",
+    "category": "AI, Research and Media",
+    "agent_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "human_verified_result": {
+      "auth_methods": ["Other"],
+      "credential_access": "SELF_SERVE_FREE",
+      "api_available": true,
+      "mcp_status": "COMMUNITY",
+      "buildability": "READY"
+    },
+    "status": "CORRECT",
+    "evidence_url": "https://github.com/mermaid-js/mermaid-cli",
+    "notes": "Verified as an open-source CLI utility (@mermaid-js/mermaid-cli) with community MCP implementations that wrap the CLI to render SVGs for LLMs."
+  }
+]

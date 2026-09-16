@@ -1,0 +1,935 @@
+{
+  "metadata": {
+    "total_applications_analyzed": 100,
+    "categories_analyzed": 10,
+    "generated_from": "C:\\Users\\dhruv\\OneDrive\\Desktop\\interview\\Composio Assignment\\data\\research_results.json"
+  },
+  "authentication_summary": {
+    "oauth": {
+      "count": 52,
+      "percentage": 52.0
+    },
+    "api_key": {
+      "count": 51,
+      "percentage": 51.0
+    },
+    "bearer_or_pat_token": {
+      "count": 72,
+      "percentage": 72.0
+    },
+    "basic_auth": {
+      "count": 16,
+      "percentage": 16.0
+    },
+    "jwt": {
+      "count": 7,
+      "percentage": 7.0
+    },
+    "other": {
+      "count": 7,
+      "percentage": 7.0
+    },
+    "multiple_auth_methods": {
+      "count": 78,
+      "percentage": 78.0
+    },
+    "breakdown": {
+      "OAuth2": {
+        "count": 52,
+        "percentage": 52.0
+      },
+      "JWT": {
+        "count": 7,
+        "percentage": 7.0
+      },
+      "Bearer Token": {
+        "count": 62,
+        "percentage": 62.0
+      },
+      "API Key": {
+        "count": 51,
+        "percentage": 51.0
+      },
+      "Basic Auth": {
+        "count": 16,
+        "percentage": 16.0
+      },
+      "OAuth1": {
+        "count": 2,
+        "percentage": 2.0
+      },
+      "Other": {
+        "count": 7,
+        "percentage": 7.0
+      },
+      "Personal Access Token": {
+        "count": 10,
+        "percentage": 10.0
+      }
+    }
+  },
+  "credential_access_summary": {
+    "SELF_SERVE_FREE": {
+      "count": 69,
+      "percentage": 69.0
+    },
+    "SELF_SERVE_TRIAL": {
+      "count": 12,
+      "percentage": 12.0
+    },
+    "CONTACT_SALES": {
+      "count": 10,
+      "percentage": 10.0
+    },
+    "SELF_SERVE_PAID": {
+      "count": 5,
+      "percentage": 5.0
+    },
+    "PARTNER_GATED": {
+      "count": 3,
+      "percentage": 3.0
+    },
+    "UNKNOWN": {
+      "count": 1,
+      "percentage": 1.0
+    }
+  },
+  "api_surface_summary": {
+    "api_available": {
+      "count": 98,
+      "percentage": 98.0
+    },
+    "api_unavailable": {
+      "count": 2,
+      "percentage": 2.0
+    },
+    "protocols": {
+      "REST": {
+        "count": 93,
+        "percentage": 93.0
+      },
+      "GraphQL": {
+        "count": 11,
+        "percentage": 11.0
+      },
+      "Webhooks": {
+        "count": 67,
+        "percentage": 67.0
+      },
+      "SDK": {
+        "count": 53,
+        "percentage": 53.0
+      },
+      "CLI": {
+        "count": 13,
+        "percentage": 13.0
+      }
+    },
+    "breadth": {
+      "BROAD": {
+        "count": 71,
+        "percentage": 71.0
+      },
+      "MODERATE": {
+        "count": 22,
+        "percentage": 22.0
+      },
+      "UNKNOWN": {
+        "count": 2,
+        "percentage": 2.0
+      },
+      "NARROW": {
+        "count": 5,
+        "percentage": 5.0
+      }
+    }
+  },
+  "mcp_status_summary": {
+    "has_mcp": {
+      "count": 66,
+      "percentage": 66.0
+    },
+    "no_mcp_found": {
+      "count": 33,
+      "percentage": 33.0
+    },
+    "breakdown": {
+      "THIRD_PARTY": {
+        "count": 1,
+        "percentage": 1.0
+      },
+      "COMMUNITY": {
+        "count": 60,
+        "percentage": 60.0
+      },
+      "NONE_FOUND": {
+        "count": 33,
+        "percentage": 33.0
+      },
+      "OFFICIAL": {
+        "count": 5,
+        "percentage": 5.0
+      },
+      "NOT_APPLICABLE": {
+        "count": 1,
+        "percentage": 1.0
+      }
+    }
+  },
+  "buildability_summary": {
+    "READY": {
+      "count": 69,
+      "percentage": 69.0
+    },
+    "BLOCKED": {
+      "count": 14,
+      "percentage": 14.0
+    },
+    "READY_WITH_CAVEATS": {
+      "count": 17,
+      "percentage": 17.0
+    }
+  },
+  "common_blockers_summary": {
+    "None (Self-Serve Ready)": {
+      "count": 69,
+      "percentage": 69.0
+    },
+    "Enterprise Sales / Contract Gating": {
+      "count": 8,
+      "percentage": 8.0
+    },
+    "Paid Tier / Financial Cost Requirement": {
+      "count": 8,
+      "percentage": 8.0
+    },
+    "Partner Program / Compliance Review": {
+      "count": 7,
+      "percentage": 7.0
+    },
+    "Account / Domain Eligibility Constraints": {
+      "count": 4,
+      "percentage": 4.0
+    },
+    "No Public Developer API": {
+      "count": 2,
+      "percentage": 2.0
+    },
+    "Aggressive Rate Limiting / Anti-Bot": {
+      "count": 2,
+      "percentage": 2.0
+    }
+  },
+  "category_matrix": {
+    "CRM and Sales": {
+      "app_count": 10,
+      "self_serve_count": 9,
+      "self_serve_percentage": 90.0,
+      "gated_count": 1,
+      "gated_percentage": 10.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 7,
+      "mcp_availability_percentage": 70.0,
+      "buildability_distribution": {
+        "READY": 9,
+        "BLOCKED": 1
+      }
+    },
+    "Support and Helpdesk": {
+      "app_count": 10,
+      "self_serve_count": 8,
+      "self_serve_percentage": 80.0,
+      "gated_count": 2,
+      "gated_percentage": 20.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 7,
+      "mcp_availability_percentage": 70.0,
+      "buildability_distribution": {
+        "READY": 8,
+        "READY_WITH_CAVEATS": 1,
+        "BLOCKED": 1
+      }
+    },
+    "Communications and Messaging": {
+      "app_count": 10,
+      "self_serve_count": 10,
+      "self_serve_percentage": 100.0,
+      "gated_count": 0,
+      "gated_percentage": 0.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 7,
+      "mcp_availability_percentage": 70.0,
+      "buildability_distribution": {
+        "READY": 9,
+        "READY_WITH_CAVEATS": 1
+      }
+    },
+    "Marketing, Ads, Email and Social": {
+      "app_count": 10,
+      "self_serve_count": 8,
+      "self_serve_percentage": 80.0,
+      "gated_count": 2,
+      "gated_percentage": 20.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 7,
+      "mcp_availability_percentage": 70.0,
+      "buildability_distribution": {
+        "READY_WITH_CAVEATS": 5,
+        "BLOCKED": 1,
+        "READY": 4
+      }
+    },
+    "Ecommerce": {
+      "app_count": 10,
+      "self_serve_count": 6,
+      "self_serve_percentage": 60.0,
+      "gated_count": 4,
+      "gated_percentage": 40.0,
+      "api_availability_count": 9,
+      "api_availability_percentage": 90.0,
+      "mcp_availability_count": 5,
+      "mcp_availability_percentage": 50.0,
+      "buildability_distribution": {
+        "READY": 6,
+        "BLOCKED": 3,
+        "READY_WITH_CAVEATS": 1
+      }
+    },
+    "Data, SEO and Scraping": {
+      "app_count": 10,
+      "self_serve_count": 8,
+      "self_serve_percentage": 80.0,
+      "gated_count": 2,
+      "gated_percentage": 20.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 4,
+      "mcp_availability_percentage": 40.0,
+      "buildability_distribution": {
+        "READY": 6,
+        "READY_WITH_CAVEATS": 3,
+        "BLOCKED": 1
+      }
+    },
+    "Developer, Infra and Data": {
+      "app_count": 10,
+      "self_serve_count": 10,
+      "self_serve_percentage": 100.0,
+      "gated_count": 0,
+      "gated_percentage": 0.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 10,
+      "mcp_availability_percentage": 100.0,
+      "buildability_distribution": {
+        "READY": 10
+      }
+    },
+    "Productivity and Project Management": {
+      "app_count": 10,
+      "self_serve_count": 10,
+      "self_serve_percentage": 100.0,
+      "gated_count": 0,
+      "gated_percentage": 0.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 10,
+      "mcp_availability_percentage": 100.0,
+      "buildability_distribution": {
+        "READY": 10
+      }
+    },
+    "Finance and Fintech": {
+      "app_count": 10,
+      "self_serve_count": 7,
+      "self_serve_percentage": 70.0,
+      "gated_count": 3,
+      "gated_percentage": 30.0,
+      "api_availability_count": 10,
+      "api_availability_percentage": 100.0,
+      "mcp_availability_count": 7,
+      "mcp_availability_percentage": 70.0,
+      "buildability_distribution": {
+        "READY": 5,
+        "BLOCKED": 3,
+        "READY_WITH_CAVEATS": 2
+      }
+    },
+    "AI, Research and Media": {
+      "app_count": 10,
+      "self_serve_count": 5,
+      "self_serve_percentage": 50.0,
+      "gated_count": 5,
+      "gated_percentage": 50.0,
+      "api_availability_count": 9,
+      "api_availability_percentage": 90.0,
+      "mcp_availability_count": 2,
+      "mcp_availability_percentage": 20.0,
+      "buildability_distribution": {
+        "BLOCKED": 4,
+        "READY_WITH_CAVEATS": 4,
+        "READY": 2
+      }
+    }
+  },
+  "low_friction_analysis": {
+    "rule_definition": "Documented public API + Self-serve free/trial credentials + READY buildability + No partnership/sales blocker",
+    "low_friction_count": 69,
+    "low_friction_percentage": 69.0,
+    "applications_meeting_low_friction_criteria": [
+      {
+        "id": 1,
+        "app": "Salesforce",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 2,
+        "app": "HubSpot",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 3,
+        "app": "Pipedrive",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 4,
+        "app": "Attio",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 5,
+        "app": "Twenty",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 6,
+        "app": "Podio",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 7,
+        "app": "Zoho CRM",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 8,
+        "app": "Close",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 9,
+        "app": "Copper",
+        "category": "CRM and Sales"
+      },
+      {
+        "id": 11,
+        "app": "Zendesk",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 12,
+        "app": "Intercom",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 13,
+        "app": "Freshdesk",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 14,
+        "app": "Front",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 16,
+        "app": "LiveAgent",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 17,
+        "app": "Plain",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 18,
+        "app": "Help Scout",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 19,
+        "app": "Gorgias",
+        "category": "Support and Helpdesk"
+      },
+      {
+        "id": 21,
+        "app": "Slack",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 22,
+        "app": "Twilio",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 23,
+        "app": "Zoho Cliq",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 24,
+        "app": "Lark",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 25,
+        "app": "Pumble",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 26,
+        "app": "Discord",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 27,
+        "app": "Telegram",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 29,
+        "app": "Aircall",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 30,
+        "app": "Vonage",
+        "category": "Communications and Messaging"
+      },
+      {
+        "id": 35,
+        "app": "Mailchimp",
+        "category": "Marketing, Ads, Email and Social"
+      },
+      {
+        "id": 36,
+        "app": "Klaviyo",
+        "category": "Marketing, Ads, Email and Social"
+      },
+      {
+        "id": 37,
+        "app": "systeme.io",
+        "category": "Marketing, Ads, Email and Social"
+      },
+      {
+        "id": 40,
+        "app": "SendGrid",
+        "category": "Marketing, Ads, Email and Social"
+      },
+      {
+        "id": 41,
+        "app": "Shopify",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 42,
+        "app": "WooCommerce",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 43,
+        "app": "BigCommerce",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 45,
+        "app": "Magento / Adobe Commerce",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 47,
+        "app": "Ecwid",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 48,
+        "app": "Gumroad",
+        "category": "Ecommerce"
+      },
+      {
+        "id": 51,
+        "app": "DataForSEO",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 54,
+        "app": "MrScraper",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 55,
+        "app": "Apify",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 56,
+        "app": "Firecrawl",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 57,
+        "app": "Bright Data",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 58,
+        "app": "Sherlock",
+        "category": "Data, SEO and Scraping"
+      },
+      {
+        "id": 61,
+        "app": "GitHub",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 62,
+        "app": "Vercel",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 63,
+        "app": "Netlify",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 64,
+        "app": "Cloudflare",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 65,
+        "app": "Supabase",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 66,
+        "app": "Neo4j",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 67,
+        "app": "Snowflake",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 68,
+        "app": "MongoDB Atlas",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 69,
+        "app": "Datadog",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 70,
+        "app": "Sentry",
+        "category": "Developer, Infra and Data"
+      },
+      {
+        "id": 71,
+        "app": "Notion",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 72,
+        "app": "Airtable",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 73,
+        "app": "Linear",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 74,
+        "app": "Jira",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 75,
+        "app": "Asana",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 76,
+        "app": "Monday.com",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 77,
+        "app": "ClickUp",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 78,
+        "app": "Coda",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 79,
+        "app": "Smartsheet",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 80,
+        "app": "Harvest",
+        "category": "Productivity and Project Management"
+      },
+      {
+        "id": 81,
+        "app": "Stripe",
+        "category": "Finance and Fintech"
+      },
+      {
+        "id": 82,
+        "app": "Plaid",
+        "category": "Finance and Fintech"
+      },
+      {
+        "id": 83,
+        "app": "Binance",
+        "category": "Finance and Fintech"
+      },
+      {
+        "id": 86,
+        "app": "QuickBooks",
+        "category": "Finance and Fintech"
+      },
+      {
+        "id": 87,
+        "app": "Xero",
+        "category": "Finance and Fintech"
+      },
+      {
+        "id": 95,
+        "app": "Reducto",
+        "category": "AI, Research and Media"
+      },
+      {
+        "id": 98,
+        "app": "Mermaid CLI",
+        "category": "AI, Research and Media"
+      }
+    ],
+    "gated_segments": {
+      "contact_sales_required": {
+        "count": 10,
+        "apps": [
+          {
+            "id": 10,
+            "app": "DealCloud",
+            "category": "CRM and Sales"
+          },
+          {
+            "id": 20,
+            "app": "Gladly",
+            "category": "Support and Helpdesk"
+          },
+          {
+            "id": 50,
+            "app": "Fanbasis",
+            "category": "Ecommerce"
+          },
+          {
+            "id": 59,
+            "app": "Waterfall.io",
+            "category": "Data, SEO and Scraping"
+          },
+          {
+            "id": 84,
+            "app": "Paygent Connect",
+            "category": "Finance and Fintech"
+          },
+          {
+            "id": 85,
+            "app": "iPayX",
+            "category": "Finance and Fintech"
+          },
+          {
+            "id": 90,
+            "app": "PitchBook",
+            "category": "Finance and Fintech"
+          },
+          {
+            "id": 92,
+            "app": "Otter AI",
+            "category": "AI, Research and Media"
+          },
+          {
+            "id": 96,
+            "app": "Devin",
+            "category": "AI, Research and Media"
+          },
+          {
+            "id": 97,
+            "app": "Higgsfield",
+            "category": "AI, Research and Media"
+          }
+        ]
+      },
+      "partner_vetting_required": {
+        "count": 3,
+        "apps": [
+          {
+            "id": 33,
+            "app": "LinkedIn Ads",
+            "category": "Marketing, Ads, Email and Social"
+          },
+          {
+            "id": 44,
+            "app": "Salesforce Commerce Cloud",
+            "category": "Ecommerce"
+          },
+          {
+            "id": 49,
+            "app": "Amazon Selling Partner API",
+            "category": "Ecommerce"
+          }
+        ]
+      },
+      "admin_approval_required": {
+        "count": 0,
+        "apps": []
+      },
+      "paid_tier_required": {
+        "count": 5,
+        "apps": [
+          {
+            "id": 15,
+            "app": "Pylon",
+            "category": "Support and Helpdesk"
+          },
+          {
+            "id": 34,
+            "app": "GoHighLevel",
+            "category": "Marketing, Ads, Email and Social"
+          },
+          {
+            "id": 46,
+            "app": "Squarespace",
+            "category": "Ecommerce"
+          },
+          {
+            "id": 53,
+            "app": "Ahrefs",
+            "category": "Data, SEO and Scraping"
+          },
+          {
+            "id": 93,
+            "app": "Fathom",
+            "category": "AI, Research and Media"
+          }
+        ]
+      },
+      "no_public_developer_api": {
+        "count": 2,
+        "apps": [
+          {
+            "id": 50,
+            "app": "Fanbasis",
+            "category": "Ecommerce"
+          },
+          {
+            "id": 91,
+            "app": "NotebookLM",
+            "category": "AI, Research and Media"
+          }
+        ]
+      }
+    }
+  },
+  "evidence_based_insights": [
+    {
+      "id": 1,
+      "headline": "Developer Tooling and Productivity Lead the Industry with 100.0% and 100.0% Self-Serve Access",
+      "statistic": "100.0% Developer/Infra and 100.0% Productivity apps provide self-serve developer access",
+      "explanation": "Modern developer platforms (GitHub, Supabase, Cloudflare) and productivity tools (Notion, Linear, Airtable) prioritize bottoms-up developer adoption with immediate personal access tokens and free sandboxes.",
+      "supporting_applications": [
+        "GitHub",
+        "Supabase",
+        "Linear",
+        "Notion",
+        "Airtable"
+      ]
+    },
+    {
+      "id": 2,
+      "headline": "Authentication Polarization: OAuth2 Dominates at 52.0%, While 72.0% Support Bearer/Personal Access Tokens",
+      "statistic": "OAuth2 is utilized by 52 of 100 applications, while Bearer/PAT tokens are supported by 72 applications",
+      "explanation": "Customer-facing SaaS platforms enforce multi-tenant OAuth2 flows for security and scoping, whereas developer-first tools offer frictionless Personal Access Tokens for rapid script and agent integration.",
+      "supporting_applications": [
+        "Salesforce",
+        "Slack",
+        "HubSpot",
+        "GitHub",
+        "Linear"
+      ]
+    },
+    {
+      "id": 3,
+      "headline": "The MCP Gap: 33.0% of Applications Lack Documented Model Context Protocol Servers",
+      "statistic": "Only 66 of 100 applications have any documented MCP server, with only 5 official vendor implementations",
+      "explanation": "Despite massive interest in agentic workflows, official MCP adoption remains nascent. The vast majority of available servers are community-maintained on GitHub, creating an enormous market opportunity for standardized integration providers like Composio.",
+      "supporting_applications": [
+        "Slack",
+        "GitHub",
+        "Cloudflare",
+        "Sentry",
+        "Neo4j"
+      ]
+    },
+    {
+      "id": 4,
+      "headline": "Enterprise Gating in Vertical Software: 10 Applications Require Enterprise Sales Engagement",
+      "statistic": "10% of researched applications completely gate API access behind enterprise sales contracts and manual onboarding",
+      "explanation": "Vertical financial platforms (DealCloud, PitchBook) and legacy enterprise systems (Paygent Connect, Gladly) treat their APIs as contractual commercial assets rather than self-serve developer features.",
+      "supporting_applications": [
+        "DealCloud",
+        "PitchBook",
+        "Paygent Connect",
+        "Gladly",
+        "Waterfall.io"
+      ]
+    },
+    {
+      "id": 5,
+      "headline": "Compliance and Ad Gating: 3 Applications Require Formal Partner Vetting",
+      "statistic": "3% of applications require formal developer program review or partner vetting before granting write permissions",
+      "explanation": "Ad networks (LinkedIn Ads, Amazon SP-API) protect advertising spend and sensitive merchant datasets through stringent application review pipelines (e.g. LinkedIn MDP, Amazon Data Protection Policy).",
+      "supporting_applications": [
+        "LinkedIn Ads",
+        "Amazon Selling Partner API",
+        "Salesforce Commerce Cloud"
+      ]
+    },
+    {
+      "id": 6,
+      "headline": "High AI-Agent Toolkit Feasibility: 69.0% of Applications are Immediately Ready for Agent Integration",
+      "statistic": "69 of 100 applications are classified as READY for AI agent toolkits, with an additional 17 READY WITH CAVEATS",
+      "explanation": "A strong majority of modern software applications expose mature, REST/GraphQL APIs with comprehensive CRUD breadth, allowing autonomous AI agents to perform complex enterprise actions today.",
+      "supporting_applications": [
+        "Salesforce",
+        "Zendesk",
+        "Shopify",
+        "Linear",
+        "Stripe"
+      ]
+    }
+  ]
+}

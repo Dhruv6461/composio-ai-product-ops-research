@@ -1,0 +1,3517 @@
+{
+  "verification_summary": {
+    "pass_1": {
+      "sample_size": 20,
+      "correct": 15,
+      "incorrect": 5,
+      "accuracy": 0.75
+    },
+    "pass_2": {
+      "sample_size": 20,
+      "correct": 20,
+      "incorrect": 0,
+      "accuracy": 1.0
+    }
+  },
+  "error_analysis": {
+    "recurring_error_patterns_identified_in_pass_1": [
+      {
+        "category": "Credential Gating Precision",
+        "description": "Confusing developer sandbox/portal access with production self-serve availability (e.g. DealCloud, SFCC).",
+        "apps_impacted": [
+          "DealCloud (ID 10)",
+          "Salesforce Commerce Cloud (ID 44)"
+        ],
+        "remediation": "Mandate distinction between developer sandbox and production org licensing. Mark enterprise-only as CONTACT_SALES."
+      },
+      {
+        "category": "Partner Gating in Advertising Platforms",
+        "description": "Assuming public developer app creation grants immediate API ad spend access without partner review (e.g. LinkedIn Ads MDP).",
+        "apps_impacted": [
+          "LinkedIn Ads (ID 33)"
+        ],
+        "remediation": "Classify developer platforms requiring formal partner program vetting as PARTNER_GATED and BLOCKED."
+      },
+      {
+        "category": "MCP Provenance & Ownership",
+        "description": "Classifying community hobbyist GitHub repositories as OFFICIAL vendor MCP servers or vice-versa (e.g. Sentry).",
+        "apps_impacted": [
+          "Sentry (ID 70)"
+        ],
+        "remediation": "Audit organization name against verified vendor domains before setting MCP status to OFFICIAL vs COMMUNITY."
+      },
+      {
+        "category": "API Surface vs Local Executable",
+        "description": "Labeling open-source CLI utilities (Mermaid CLI) as REST APIs instead of CLI binaries.",
+        "apps_impacted": [
+          "Mermaid CLI (ID 98)"
+        ],
+        "remediation": "Permit 'CLI' in api_types and mark credential_access as SELF_SERVE_FREE with mcp_status NOT_APPLICABLE / COMMUNITY."
+      }
+    ],
+    "pass_1_failures": [
+      {
+        "id": 10,
+        "app": "DealCloud",
+        "category": "CRM and Sales",
+        "failed_fields": [
+          "credential_access",
+          "buildability"
+        ],
+        "checks": [
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_TRIAL",
+            "verified_result": "CONTACT_SALES",
+            "status": "INCORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_TRIAL, actual access is CONTACT_SALES."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Buildability mismatch: claimed READY_WITH_CAVEATS, actual verified status is BLOCKED."
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "app": "LinkedIn Ads",
+        "category": "Marketing, Ads, Email and Social",
+        "failed_fields": [
+          "credential_access",
+          "buildability"
+        ],
+        "checks": [
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "PARTNER_GATED",
+            "status": "INCORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_FREE, actual access is PARTNER_GATED."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Buildability mismatch: claimed READY, actual verified status is BLOCKED."
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "app": "Salesforce Commerce Cloud",
+        "category": "Ecommerce",
+        "failed_fields": [
+          "credential_access",
+          "buildability"
+        ],
+        "checks": [
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "PARTNER_GATED",
+            "status": "INCORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_FREE, actual access is PARTNER_GATED."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Buildability mismatch: claimed READY, actual verified status is BLOCKED."
+          }
+        ]
+      },
+      {
+        "id": 70,
+        "app": "Sentry",
+        "category": "Developer, Infra and Data",
+        "failed_fields": [
+          "mcp_status"
+        ],
+        "checks": [
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "OFFICIAL",
+            "status": "INCORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "MCP discrepancy: claimed COMMUNITY, verified ground truth is OFFICIAL."
+          }
+        ]
+      },
+      {
+        "id": 98,
+        "app": "Mermaid CLI",
+        "category": "AI, Research and Media",
+        "failed_fields": [
+          "api_types"
+        ],
+        "checks": [
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "status": "INCORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "API mismatch: claimed available=True types={'REST'}, actual available=True types={'CLI'}."
+          }
+        ]
+      }
+    ],
+    "pass_2_failures": []
+  },
+  "detailed_audits": {
+    "pass_1": [
+      {
+        "id": 1,
+        "app": "Salesforce",
+        "category": "CRM and Sales",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "JWT",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "JWT",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Documented auth mechanisms verified (JWT, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "THIRD_PARTY",
+            "verified_result": "THIRD_PARTY",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "MCP status confirmed as THIRD_PARTY (Maintained in third-party integration platforms like Composio; no official Anthropic-hosted MCP server published by Salesforce engineering.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "app": "DealCloud",
+        "category": "CRM and Sales",
+        "overall_status": "INCORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_TRIAL",
+            "verified_result": "CONTACT_SALES",
+            "status": "INCORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_TRIAL, actual access is CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers exist; private enterprise ecosystem with proprietary data models.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Buildability mismatch: claimed READY_WITH_CAVEATS, actual verified status is BLOCKED."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "app": "Zendesk",
+        "category": "Support and Helpdesk",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "API Key",
+              "Bearer Token",
+              "Basic Auth"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "API Key",
+              "Bearer Token",
+              "Basic Auth"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, Bearer Token, API Key, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. zendesk-mcp-server) and supported natively in third-party agent frameworks.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "app": "Gladly",
+        "category": "Support and Helpdesk",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Basic Auth",
+              "API Key"
+            ],
+            "verified_result": [
+              "Basic Auth",
+              "API Key"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, API Key)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "CONTACT_SALES",
+            "verified_result": "CONTACT_SALES",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Credential acquisition verified as CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "API availability (True) and protocols (REST, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers found in public registries.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "app": "Slack",
+        "category": "Communications and Messaging",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "OFFICIAL",
+            "verified_result": "OFFICIAL",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "MCP status confirmed as OFFICIAL (Official Anthropic MCP server implementation available in the core modelcontextprotocol/servers repository.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "app": "WhatsApp Business",
+        "category": "Communications and Messaging",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "API availability (True) and protocols (REST, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub utilizing the Meta Cloud API for WhatsApp.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "READY_WITH_CAVEATS",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Buildability rating READY_WITH_CAVEATS validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "app": "Meta Ads",
+        "category": "Marketing, Ads, Email and Social",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP implementations exist on GitHub for querying Meta Ads Insights.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "READY_WITH_CAVEATS",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Buildability rating READY_WITH_CAVEATS validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "app": "LinkedIn Ads",
+        "category": "Marketing, Ads, Email and Social",
+        "overall_status": "INCORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2"
+            ],
+            "verified_result": [
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Documented auth mechanisms verified (OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "PARTNER_GATED",
+            "status": "INCORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_FREE, actual access is PARTNER_GATED."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "MCP status confirmed as NONE_FOUND (No public MCP servers found due to strict developer partner gating.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Buildability mismatch: claimed READY, actual verified status is BLOCKED."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "app": "Shopify",
+        "category": "Ecommerce",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "MCP status confirmed as COMMUNITY (Multiple community MCP servers available on GitHub (e.g. shopify-mcp, shopify-graphql-mcp) and in Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "app": "Salesforce Commerce Cloud",
+        "category": "Ecommerce",
+        "overall_status": "INCORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token",
+              "JWT"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token",
+              "JWT"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Documented auth mechanisms verified (JWT, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "PARTNER_GATED",
+            "status": "INCORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Incorrect credential gating: claimed SELF_SERVE_FREE, actual access is PARTNER_GATED."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "MCP status confirmed as NONE_FOUND (No public MCP servers found due to enterprise client gating.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "BLOCKED",
+            "status": "INCORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Buildability mismatch: claimed READY, actual verified status is BLOCKED."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 55,
+        "app": "Apify",
+        "category": "Data, SEO and Scraping",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "API Key"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "API Key"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Documented auth mechanisms verified (Bearer Token, API Key)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK",
+                "CLI"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK",
+                "CLI"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks, CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. apify-mcp-server) allowing AI agents to run any Apify Actor.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 58,
+        "app": "Sherlock",
+        "category": "Data, SEO and Scraping",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "API availability (True) and protocols (CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "NARROW",
+            "verified_result": "NARROW",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "API breadth verified as NARROW."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NOT_APPLICABLE",
+            "verified_result": "NOT_APPLICABLE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "MCP status confirmed as NOT_APPLICABLE (Local CLI binary tool rather than a SaaS API; community CLI MCP wrapper exists on GitHub.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 61,
+        "app": "GitHub",
+        "category": "Developer, Infra and Data",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Personal Access Token",
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "Personal Access Token",
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "API availability (True) and protocols (Webhooks, SDK, GraphQL, REST, CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "OFFICIAL",
+            "verified_result": "OFFICIAL",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "MCP status confirmed as OFFICIAL (Official Anthropic MCP server implementation maintained in modelcontextprotocol/servers repository.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 70,
+        "app": "Sentry",
+        "category": "Developer, Infra and Data",
+        "overall_status": "INCORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "Personal Access Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "Personal Access Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "OFFICIAL",
+            "status": "INCORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "MCP discrepancy: claimed COMMUNITY, verified ground truth is OFFICIAL."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 71,
+        "app": "Notion",
+        "category": "Productivity and Project Management",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "MCP status confirmed as COMMUNITY (Multiple community MCP servers available on GitHub (e.g. notion-mcp-server) and in Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 73,
+        "app": "Linear",
+        "category": "Productivity and Project Management",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Personal Access Token",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Personal Access Token",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "API availability (True) and protocols (GraphQL, Webhooks, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. linear-mcp) allowing LLMs to create and update engineering issues.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 81,
+        "app": "Stripe",
+        "category": "Finance and Fintech",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "API Key",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "API Key",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Documented auth mechanisms verified (Bearer Token, API Key, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "API availability (True) and protocols (SDK, REST, CLI, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. stripe-mcp) and deeply integrated into Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 84,
+        "app": "Paygent Connect",
+        "category": "Finance and Fintech",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Basic Auth",
+              "Other"
+            ],
+            "verified_result": [
+              "Basic Auth",
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "CONTACT_SALES",
+            "verified_result": "CONTACT_SALES",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Credential acquisition verified as CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers exist.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "app": "NotebookLM",
+        "category": "AI, Research and Media",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "UNKNOWN",
+            "verified_result": "UNKNOWN",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Credential acquisition verified as UNKNOWN."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": false,
+              "api_types": []
+            },
+            "verified_result": {
+              "api_available": false,
+              "api_types": []
+            },
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "API availability (False) and protocols () verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "UNKNOWN",
+            "verified_result": "UNKNOWN",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "API breadth verified as UNKNOWN."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "MCP status confirmed as NONE_FOUND (No official or credible community MCP servers found in public registries.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 98,
+        "app": "Mermaid CLI",
+        "category": "AI, Research and Media",
+        "overall_status": "INCORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "status": "INCORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "API mismatch: claimed available=True types={'REST'}, actual available=True types={'CLI'}."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "NARROW",
+            "status": "PARTIALLY_CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Breadth assessment difference: claimed MODERATE, verified as NARROW."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. mermaid-mcp) enabling LLMs to render diagrams on demand.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      }
+    ],
+    "pass_2": [
+      {
+        "id": 1,
+        "app": "Salesforce",
+        "category": "CRM and Sales",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "JWT",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "JWT",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Documented auth mechanisms verified (JWT, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "THIRD_PARTY",
+            "verified_result": "THIRD_PARTY",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "MCP status confirmed as THIRD_PARTY (Maintained in third-party integration platforms like Composio; no official Anthropic-hosted MCP server published by Salesforce engineering.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_rest.htm",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "app": "DealCloud",
+        "category": "CRM and Sales",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "CONTACT_SALES",
+            "verified_result": "CONTACT_SALES",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Credential acquisition verified as CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers exist; private enterprise ecosystem with proprietary data models.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://intapp.com/dealcloud/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "app": "Zendesk",
+        "category": "Support and Helpdesk",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "API Key",
+              "Bearer Token",
+              "Basic Auth"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "API Key",
+              "Bearer Token",
+              "Basic Auth"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, Bearer Token, API Key, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. zendesk-mcp-server) and supported natively in third-party agent frameworks.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.zendesk.com/api-reference/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "app": "Gladly",
+        "category": "Support and Helpdesk",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Basic Auth",
+              "API Key"
+            ],
+            "verified_result": [
+              "Basic Auth",
+              "API Key"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, API Key)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "CONTACT_SALES",
+            "verified_result": "CONTACT_SALES",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Credential acquisition verified as CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "API availability (True) and protocols (REST, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers found in public registries.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.gladly.com/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "app": "Slack",
+        "category": "Communications and Messaging",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "OFFICIAL",
+            "verified_result": "OFFICIAL",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "MCP status confirmed as OFFICIAL (Official Anthropic MCP server implementation available in the core modelcontextprotocol/servers repository.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://api.slack.com/web",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 28,
+        "app": "WhatsApp Business",
+        "category": "Communications and Messaging",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "API availability (True) and protocols (REST, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub utilizing the Meta Cloud API for WhatsApp.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "READY_WITH_CAVEATS",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "Buildability rating READY_WITH_CAVEATS validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/whatsapp/cloud-api/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 32,
+        "app": "Meta Ads",
+        "category": "Marketing, Ads, Email and Social",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP implementations exist on GitHub for querying Meta Ads Insights.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY_WITH_CAVEATS",
+            "verified_result": "READY_WITH_CAVEATS",
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "Buildability rating READY_WITH_CAVEATS validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.facebook.com/docs/marketing-apis/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 33,
+        "app": "LinkedIn Ads",
+        "category": "Marketing, Ads, Email and Social",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2"
+            ],
+            "verified_result": [
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Documented auth mechanisms verified (OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "PARTNER_GATED",
+            "verified_result": "PARTNER_GATED",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Credential acquisition verified as PARTNER_GATED."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "MCP status confirmed as NONE_FOUND (No public MCP servers found due to strict developer partner gating.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://learn.microsoft.com/en-us/linkedin/marketing/overview",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "app": "Shopify",
+        "category": "Ecommerce",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "API availability (True) and protocols (GraphQL, REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "MCP status confirmed as COMMUNITY (Multiple community MCP servers available on GitHub (e.g. shopify-mcp, shopify-graphql-mcp) and in Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://shopify.dev/docs/api/admin-graphql",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 44,
+        "app": "Salesforce Commerce Cloud",
+        "category": "Ecommerce",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "OAuth2",
+              "Bearer Token",
+              "JWT"
+            ],
+            "verified_result": [
+              "OAuth2",
+              "Bearer Token",
+              "JWT"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Documented auth mechanisms verified (JWT, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "PARTNER_GATED",
+            "verified_result": "PARTNER_GATED",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Credential acquisition verified as PARTNER_GATED."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "MCP status confirmed as NONE_FOUND (No public MCP servers found due to enterprise client gating.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developer.salesforce.com/docs/commerce/commerce-api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 55,
+        "app": "Apify",
+        "category": "Data, SEO and Scraping",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "API Key"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "API Key"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Documented auth mechanisms verified (Bearer Token, API Key)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK",
+                "CLI"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK",
+                "CLI"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks, CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. apify-mcp-server) allowing AI agents to run any Apify Actor.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://docs.apify.com/api/v2",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 58,
+        "app": "Sherlock",
+        "category": "Data, SEO and Scraping",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "API availability (True) and protocols (CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "NARROW",
+            "verified_result": "NARROW",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "API breadth verified as NARROW."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NOT_APPLICABLE",
+            "verified_result": "NOT_APPLICABLE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "MCP status confirmed as NOT_APPLICABLE (Local CLI binary tool rather than a SaaS API; community CLI MCP wrapper exists on GitHub.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://github.com/sherlock-project/sherlock",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 61,
+        "app": "GitHub",
+        "category": "Developer, Infra and Data",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Personal Access Token",
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "verified_result": [
+              "Personal Access Token",
+              "OAuth2",
+              "Bearer Token"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "GraphQL",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "API availability (True) and protocols (Webhooks, SDK, GraphQL, REST, CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "OFFICIAL",
+            "verified_result": "OFFICIAL",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "MCP status confirmed as OFFICIAL (Official Anthropic MCP server implementation maintained in modelcontextprotocol/servers repository.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://docs.github.com/en/rest",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 70,
+        "app": "Sentry",
+        "category": "Developer, Infra and Data",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "Personal Access Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "Personal Access Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "API availability (True) and protocols (REST, SDK, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "OFFICIAL",
+            "verified_result": "OFFICIAL",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "MCP status confirmed as OFFICIAL (Sentry officially built and published an official MCP server on GitHub (getsentry/mcp-server) for error diagnostics.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 2,
+            "verified_result": 2,
+            "status": "CORRECT",
+            "source_url": "https://docs.sentry.io/api/",
+            "notes": "2 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 71,
+        "app": "Notion",
+        "category": "Productivity and Project Management",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Documented auth mechanisms verified (Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "API availability (True) and protocols (REST, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "MCP status confirmed as COMMUNITY (Multiple community MCP servers available on GitHub (e.g. notion-mcp-server) and in Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.notion.com/reference/intro",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 73,
+        "app": "Linear",
+        "category": "Productivity and Project Management",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Personal Access Token",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "Personal Access Token",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Documented auth mechanisms verified (Personal Access Token, Bearer Token, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "GraphQL",
+                "Webhooks",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "API availability (True) and protocols (GraphQL, Webhooks, SDK) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. linear-mcp) allowing LLMs to create and update engineering issues.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://developers.linear.app/docs/graphql/working-with-the-graphql-api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 81,
+        "app": "Stripe",
+        "category": "Finance and Fintech",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "API Key",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "verified_result": [
+              "API Key",
+              "Bearer Token",
+              "OAuth2"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Documented auth mechanisms verified (Bearer Token, API Key, OAuth2)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST",
+                "Webhooks",
+                "CLI",
+                "SDK"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "API availability (True) and protocols (SDK, REST, CLI, Webhooks) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "BROAD",
+            "verified_result": "BROAD",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "API breadth verified as BROAD."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. stripe-mcp) and deeply integrated into Composio.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://stripe.com/docs/api",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 84,
+        "app": "Paygent Connect",
+        "category": "Finance and Fintech",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Basic Auth",
+              "Other"
+            ],
+            "verified_result": [
+              "Basic Auth",
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Documented auth mechanisms verified (Basic Auth, Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "CONTACT_SALES",
+            "verified_result": "CONTACT_SALES",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Credential acquisition verified as CONTACT_SALES."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "REST"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "API availability (True) and protocols (REST) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "MODERATE",
+            "verified_result": "MODERATE",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "API breadth verified as MODERATE."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "MCP status confirmed as NONE_FOUND (No MCP servers exist.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://www.paygent.co.jp/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 91,
+        "app": "NotebookLM",
+        "category": "AI, Research and Media",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "UNKNOWN",
+            "verified_result": "UNKNOWN",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Credential acquisition verified as UNKNOWN."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": false,
+              "api_types": []
+            },
+            "verified_result": {
+              "api_available": false,
+              "api_types": []
+            },
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "API availability (False) and protocols () verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "UNKNOWN",
+            "verified_result": "UNKNOWN",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "API breadth verified as UNKNOWN."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "NONE_FOUND",
+            "verified_result": "NONE_FOUND",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "MCP status confirmed as NONE_FOUND (No official or credible community MCP servers found in public registries.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "BLOCKED",
+            "verified_result": "BLOCKED",
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "Buildability rating BLOCKED validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://notebooklm.google/",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      },
+      {
+        "id": 98,
+        "app": "Mermaid CLI",
+        "category": "AI, Research and Media",
+        "overall_status": "CORRECT",
+        "checks": [
+          {
+            "check_type": "authentication",
+            "agent_result": [
+              "Other"
+            ],
+            "verified_result": [
+              "Other"
+            ],
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Documented auth mechanisms verified (Other)."
+          },
+          {
+            "check_type": "credential_access",
+            "agent_result": "SELF_SERVE_FREE",
+            "verified_result": "SELF_SERVE_FREE",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Credential acquisition verified as SELF_SERVE_FREE."
+          },
+          {
+            "check_type": "api",
+            "agent_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "verified_result": {
+              "api_available": true,
+              "api_types": [
+                "CLI"
+              ]
+            },
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "API availability (True) and protocols (CLI) verified."
+          },
+          {
+            "check_type": "api_breadth",
+            "agent_result": "NARROW",
+            "verified_result": "NARROW",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "API breadth verified as NARROW."
+          },
+          {
+            "check_type": "mcp",
+            "agent_result": "COMMUNITY",
+            "verified_result": "COMMUNITY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "MCP status confirmed as COMMUNITY (Community MCP servers available on GitHub (e.g. mermaid-mcp) enabling LLMs to render diagrams on demand.)."
+          },
+          {
+            "check_type": "buildability",
+            "agent_result": "READY",
+            "verified_result": "READY",
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "Buildability rating READY validated."
+          },
+          {
+            "check_type": "evidence",
+            "agent_result": 1,
+            "verified_result": 1,
+            "status": "CORRECT",
+            "source_url": "https://github.com/mermaid-js/mermaid-cli",
+            "notes": "1 evidence sources validated with legitimate documentation URLs."
+          }
+        ]
+      }
+    ]
+  }
+}

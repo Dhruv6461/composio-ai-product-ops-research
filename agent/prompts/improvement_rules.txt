@@ -1,0 +1,25 @@
+# Improvement Rules Learned Between Pass 1 and Pass 2
+
+During Pass 1 research, the verification agent identified several systematic cognitive and factual errors. Pass 2 enforces the following corrections:
+
+1. CREDENTIAL GATING PRECISION (Sandbox vs Production):
+   - Rule: Free developer accounts (e.g. Salesforce Developer Edition, HubSpot Developer Portal) provide sandbox access for app development. However, deploying or testing with live enterprise orgs requires ADMIN_APPROVAL or active subscriptions.
+   - For enterprise-only products without public developer portals (e.g. DealCloud, PitchBook, Gladly), do NOT mark as SELF_SERVE_FREE. Mark as CONTACT_SALES or ADMIN_APPROVAL.
+
+2. MCP OWNERSHIP & PROVENANCE:
+   - Rule: An MCP server is ONLY "OFFICIAL" if created/maintained by the application vendor or by the core Anthropic modelcontextprotocol team.
+   - If created by third-party tooling platforms (e.g. Composio, mcp-run), classify as "THIRD_PARTY".
+   - If created by independent GitHub developers, classify as "COMMUNITY".
+   - Never claim "OFFICIAL" without checking the GitHub repository owner or official vendor announcement.
+
+3. ADVERTISING & SOCIAL API RESTRICTIONS:
+   - Rule: Marketing and ads platforms (Meta Ads, LinkedIn Ads, Google Ads, Pinterest) have developer signups, but production ad spend and management endpoints require formal "App Review", "Marketing Developer Platform (MDP) approval", or developer token application review.
+   - Buildability must be classified as "READY_WITH_CAVEATS" or "BLOCKED", with credential_access noting PARTNER_GATED or ADMIN_APPROVAL.
+
+4. LOCAL UTILITIES & BINARIES:
+   - Rule: Tools like "Mermaid CLI" are open-source CLI utilities/NPM binaries, not hosted SaaS APIs.
+   - api_types must list "CLI", credential_access is "SELF_SERVE_FREE", and mcp_status should reflect open-source server implementations or "NOT_APPLICABLE".
+
+5. EVIDENCE TRACEABILITY:
+   - Rule: Source URLs must resolve to precise developer documentation pages (e.g., https://developer.salesforce.com/docs, https://developers.hubspot.com/docs), never top-level marketing homepages (e.g. https://salesforce.com).
+   - Each claim must cite specific technical details in evidence_note.
